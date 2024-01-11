@@ -1,0 +1,137 @@
+* {
+    font-family: monospace, sans-serif;
+    padding: 0;
+    top: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #EEEE;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+/* .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+} */
+
+.form {
+    margin-top: 10px;
+    width: 20%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 6px;
+    padding: 15px;
+    max-height: 450px;
+}
+
+.content {
+    width: 75%;
+    padding-top: 15px;
+}
+
+.content h2 {
+    margin-bottom: 5px;
+}
+
+/* input {
+    display: block;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(87, 87, 87, 0.693);
+    width: 90%;
+    outline: none;
+    margin: 10px 0px;
+} */
+
+button {
+    padding: 8px 5px;
+    display: block;
+    margin: 5px 0px;
+    cursor: pointer;
+    background-color: #172554;
+    color: white;
+    border: 1px solid #172554;
+    border-radius: 6px;
+}
+
+/* .btn {
+    display: inline-block;
+} */
+
+.btnEdit {
+    padding: 7px;
+    color: white;
+    background-color: royalblue;
+    border: 1px solid royalblue;
+}
+
+.btnDetail{
+    padding: 7px;
+    color: white;
+    background-color: gray;
+    border: 1px solid gray;
+}
+
+.btnDelete {
+    margin-left: 5px;
+    padding: 7px;
+    color: white;
+    background-color: crimson;
+    border: 1px solid crimson;
+    /* background-color: #be7987; */
+}
+
+.btnFilter {
+    background-color: white;
+    color: #172554;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: 3px solid #172554;
+
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid rgba(87, 87, 87, 0.693);
+    justify-content: center;
+}
+
+
+thead {
+    background-color: #172554;
+    color: white;
+}
+
+/* th,
+td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 7px;
+} */
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgb(0, 0, 0, 0.4);
+}
+
+.modal-content{
+    background-color: #FFFF;
+    margin: 60px auto;
+    border: 1px solid #888;
+    width: 70%;
+}

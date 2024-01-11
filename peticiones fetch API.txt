@@ -1,0 +1,21 @@
+peticiones fetch API
+
+protocolo HTTP y - HTTPS 
+
+Tools:
+POST-MAN
+
+HTTP-METHODS 
+client se
+GET -> get information(images, scripts, data, text..) from servers 
+POST ->carry informamtion from  client(browser ) to the server
+PUT -> update a specific item on the server 
+DELETE ->  deletes information from the server 
+
+
+GET -> https://memin.io/public/api/users/
+GET -> https://memin.io/public/api/users/{id}
+POST ->https://memin.io/public/api/users/
+PUT -> https://memin.io/public/api/users/{id}
+DELETE ->htts//memin.io/public/api/users/{id}
+
