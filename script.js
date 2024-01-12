@@ -4,7 +4,13 @@ const tbody = document.createElement("tbody");
 const btnAdd = document.getElementById("btnAdd");
 const btnClose = document.getElementById("btnClose");
 const btnClose2 = document.getElementById("btn-close");
+
 const modalForm = document.getElementById("modalForm");
+const contentDetails = document.getElementById("content-details");
+const contentForm = document.getElementById("content-form");
+const conteId = document.getElementById("form-groupId");
+
+contentDetails.style.display = "none";
 
 
 window.addEventListener("DOMContentLoaded", ()=>{
@@ -35,7 +41,8 @@ let  result = fetch("https://memin.io/public/api/v2/users")
         row.appendChild(emailCell);
 
         let optionsCell = document.createElement("td");
-        optionsCell.innerHTML = `<button class="btn btn-primary btn-sm" onclick="loadEditUser(${element.id})">Edit</button> <button class="btn btn-secondary btn-sm" >Details</button> <button class="btn btn-danger btn-sm" onclick="deleteUser(${element.id})">Delete</button>`;
+        optionsCell.innerHTML = `<button class="btn btn-primary btn-sm" onclick="loadEditUser(${element.id})">Edit</button> <button class="btn btn-secondary btn-sm" onclick="openDetails();"
+        >Details</button> <button class="btn btn-danger btn-sm" onclick="deleteUser(${element.id})">Delete</button>`;
         row.appendChild(optionsCell);
 
         tbody.appendChild(row);
@@ -62,15 +69,11 @@ const btnSave = document.getElementById("btnSave");
 
 btnSave.onclick  = POST;
 
-let formId = document.formUsers.name;
-let formName = document.formUsers.name.value;
-let formEmail = document.formUsers.email.value;
-let formPass = document.formUsers.password.value;
 
 userData = {
-    "name": formName,
-    "password": formPass,
-    "email":formEmail
+    "name": "",
+    "password": "",
+    "email":""
 }
 
 user = {
@@ -85,31 +88,38 @@ user = {
 }
 
 function checkAction(){
-    POST(userData);
-    // if(formId.value = ""){
-
-    // }else{
+    if(formId.value = ""){
         
-    // }
-    // if (formName.value != "" && formEmail.value != "" && formPass.value != "") {
-
-    // } else {
-    //     console.log("los campos están vacios");
-    // }
+        if (formName.value != "" && formEmail.value != "" && formPass.value != "") {
+            let formId = document.formUsers.name;
+            let formName = document.formUsers.name.value;
+            let formEmail = document.formUsers.email.value;
+            let formPass = document.formUsers.password.value;
+        } else {
+            console.log("los campos están vacios");
+        }
+    }else{
+        
+    }
 }
 
 // CREATE User
 function POST(){
+    /*let name  = document.formUsers.name.value;
+    let email = document.formUsers.email.value;
+    let password = document.formUsers.password.value;
+*/
     
-    let result = fetch("https://memin.io/public/api/users", {
+
+    fetch("https://memin.io/public/api/users", {
         method: 'POST', 
         headers: {
             'Content-Type': "application/json"
         },
         body: JSON.stringify({
-            name: formName.value,
-            password: formPass.value,
-            email: formEmail.value
+            name: formName,
+            email: formEmail,
+            password: "pass"
         })
     } )
     .then(response =>{
@@ -123,7 +133,8 @@ function POST(){
 }
 
 function loadEditUser(userId){
-    getDataDataById(userId);    
+    getDataDataById(userId); 
+    conteId.style.display = "block";   
     console.log("Let's to edit user: ", userId);
     let result = fetch(`https://memin.io/public/api/users/${userId}`)
         .then(result => {
@@ -134,12 +145,18 @@ function loadEditUser(userId){
             document.formUsers.id.value  = record.id;
             document.formUsers.name.value = record.name;
             document.formUsers.email.value = record.email;
-            document.formUsers.password.value = record.email;
+            document.formUsers.password.value = record.password;
         }).catch(error => {
             console.error("Error to load data: ", error);
         })
     openModal();
 
+}
+function  openDetails(){
+    openModal();
+    contentDetails.style.display = "block";
+    contentForm.style.display = "none";
+    btnSave.style.display = "none";
 }
 
 // Edit User -> PUT
@@ -148,7 +165,7 @@ function editUser(userId, userData){
     fetch(`https://memin.io/public/api/users/${userId}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': "applicatio/json"
+            'Content-Type': "application/json"
         },
         body: JSON.stringify(userData)
     })
@@ -167,7 +184,7 @@ function deleteUser(userId){
         fetch(`https://memin.io/public/api/users/${userId}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': "applicatio/json"
+                'Content-Type': "application/json"
             },
             })
             .then(data=>{
@@ -214,12 +231,14 @@ function openModal() {
 
 function closeForm() {
     modalForm.style.display = "none";
+    resetDefaultContent();
     clearData();
 }
 
 window.onclick = function (event) {
     if (event.target == modalForm) {
         modalForm.style.display = "none";
+        resetDefaultContent();
         clearData();
     }
 } 
@@ -242,5 +261,12 @@ function clearData(){
     document.formUsers.name.value = "";
     document.formUsers.email.value = "";
     document.formUsers.password.value = "";
+}
+
+function resetDefaultContent(){
+    contentDetails.style.display = "none";
+    contentForm.style.display = "block";
+    btnSave.style.display = "block";
+    conteId.style.display = "none";
 }
 

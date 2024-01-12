@@ -12,16 +12,34 @@
 </head>
     <body>
     <div class="main">
+        <!-- <div class="modal" id="modalDetails">
+            <div class="modal-dailog" id="content-details">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Details User</h3>
+                        <button class="btn-close" id="btn-close" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+    
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary">close</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
         <div class="modal" id="modalForm">
             <div class="modal-dialog">
+                <!-- Modal form -->
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title">Users form</h3>
                         <button class="btn-close" id="btn-close" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="content-form">
                         <form name="formUsers">
-                                <div class="form-group">
+                                <div class="form-group hidden" id="form-groupId">
                                     <label for="">Id:</label>
                                     <input type="text" name="id"  class="form-control" placeholder="your id here" readonly>
                                 </div>
@@ -40,15 +58,18 @@
                                 </div>
                             
                             </form>
-                        </div>
+                    </div>
+                    <div class="modal-body" id="content-details">
+                        <p>data result</p>
+                    </div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" id="btnClose">Close</button>
                             <button type="button" id="btnSave" class="btn btn-success" onclick="POST()">ADD OR UPDATE</button>
-                        <!-- <button class="btn btn-success">Add or Update</button> -->
                     </div>
                 </div>
+              
             </div>
-        </div>
+        </div> 
         <div class="container" id="content">
             <div class="row">
                 <div class="col-md-4">
