@@ -44,20 +44,21 @@ let  result = fetch("https://memin.io/public/api/v2/users")
         row.appendChild(emailCell);
 
         let optionsCell = document.createElement("td");
-        optionsCell.innerHTML = `<button class="btn btn-primary btn-sm" onclick="loadEditUser(${element.id})">Edit</button> <button class="btn btn-secondary btn-sm" onclick="openDetails();"
+        optionsCell.innerHTML = `<button class="btn btn-primary btn-sm" onclick="loadEditUser(${element.id})">Edit</button> <button class="btn btn-secondary btn-sm" onclick="openDetails(${element.id});"
         >Details</button> <button class="btn btn-danger btn-sm" onclick="deleteUser(${element.id})">Delete</button>`;
         row.appendChild(optionsCell);
 
         tbody.appendChild(row);
 
     });
-    //  revisar();
+    //revisar();
 });
 
 table.appendChild(tbody);
 
 
 });
+
  function revisar (){
      const trs = document.getElementsByTagName("tr");
      console.log(typeof(trs));
@@ -68,8 +69,6 @@ table.appendChild(tbody);
  }
 
 // Create a new user 
-
-
 btnSave.onclick  = POST;
 
 
@@ -129,9 +128,13 @@ function POST(){
 }
 
 function loadEditUser(userId){
-    getDataDataById(userId); 
-    conteId.style.display = "block";   
     console.log("Let's to edit user: ", userId);
+    
+    conteId.style.display = "block";   
+    btnSave.classList.remove("btn-success");
+    btnSave.classList.add("btn-primary");
+    btnSave.innerText = "Edit";
+
     let result = fetch(`https://memin.io/public/api/users/${userId}`)
         .then(result => {
             return result.json();
@@ -147,11 +150,17 @@ function loadEditUser(userId){
     openModal();
 
 }
-function  openDetails(){
+
+function  openDetails(userId){
+    getDataById(userId); 
     openModal();
     contentDetails.style.display = "block";
     contentForm.style.display = "none";
     btnSave.style.display = "none";
+
+    // console.log(user);
+
+
 }
 
 // Edit User -> PUT
@@ -176,6 +185,7 @@ function editUser(userId, userData){
 function deleteUser(userId){
     // ask to the user if really want to delete de user
     if(confirm(`Sure that you want to delete user with id: ${userId}`)){
+
         fetch(`https://memin.io/public/api/users/${userId}`, {
             method: 'DELETE',
             headers: {
@@ -197,7 +207,7 @@ function deleteUser(userId){
 
 
 // load the information by Id
-function getDataDataById(userId){
+function getDataById(userId){
     let result  = fetch(`https://memin.io/public/api/users/${userId}`)
     .then(result =>{
         return result.json();
@@ -206,7 +216,26 @@ function getDataDataById(userId){
         user.id = record.id;
         user.name = record.name;
         user.email = record.email;
-        // console.log(user);
+        user.pass = record.password;
+        user.emailVerified = record.email_verified_at;
+        user.remenberToken = record.remember_token;
+        user.createdAt = record.created_at;
+        user.updateAt = record.updated_at;
+
+        // fill cell with record
+        let cells = document.querySelectorAll(".cellData");
+        console.log(cells);
+        cells[0].innerText = record.id;
+        cells[1].innerText = record.name;
+        cells[2].innerText = record.email;
+        cells[3].innerText = record.password;
+
+        cells[4].innerText = record.email_verified_at;
+        cells[5].innerText = record.remember_token;
+        cells[6].innerText = record.created_at;
+        cells[7].innerText = record.updated_at;
+
+        return user;
     }).catch(error =>{
         console.error("Error to load data: ", error);
     })
@@ -260,7 +289,12 @@ function clearData(){
 function resetDefaultContent(){
     contentDetails.style.display = "none";
     contentForm.style.display = "block";
-    btnSave.style.display = "block";
     conteId.style.display = "none";
+
+    btnSave.style.display = "block";
+    btnSave.classList.remove("btn-primary");
+    btnSave.classList.toggle("btn-success");
+    btnSave.innerText = "Save";
+
 }
 
