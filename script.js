@@ -5,8 +5,11 @@ const btnAdd = document.getElementById("btnAdd");
 const btnClose = document.getElementById("btnClose");
 const btnClose2 = document.getElementById("btn-close");
 
+const btnSave = document.getElementById("btnSave");
+
 const modalForm = document.getElementById("modalForm");
 const contentDetails = document.getElementById("content-details");
+
 const contentForm = document.getElementById("content-form");
 const conteId = document.getElementById("form-groupId");
 
@@ -65,7 +68,7 @@ table.appendChild(tbody);
  }
 
 // Create a new user 
-const btnSave = document.getElementById("btnSave");
+
 
 btnSave.onclick  = POST;
 
@@ -86,7 +89,7 @@ user = {
     createdAt: "",
     updateAt: ""
 }
-
+// function to check what action must run(create or update); 
 function checkAction(){
     if(formId.value = ""){
         
@@ -105,11 +108,6 @@ function checkAction(){
 
 // CREATE User
 function POST(){
-    /*let name  = document.formUsers.name.value;
-    let email = document.formUsers.email.value;
-    let password = document.formUsers.password.value;
-*/
-    
 
     fetch("https://memin.io/public/api/users", {
         method: 'POST', 
@@ -128,8 +126,6 @@ function POST(){
     })
     .catch(error=>{console.error("Error al crear el user:", error);});
 
-   
-    
 }
 
 function loadEditUser(userId){
@@ -141,7 +137,6 @@ function loadEditUser(userId){
             return result.json();
         })
         .then(record => {
-            // console.log(record);
             document.formUsers.id.value  = record.id;
             document.formUsers.name.value = record.name;
             document.formUsers.email.value = record.email;
@@ -179,7 +174,7 @@ function editUser(userId, userData){
 
 // Delete user
 function deleteUser(userId){
-    //console.log("Vamos a eliminar: ", userId);
+    // ask to the user if really want to delete de user
     if(confirm(`Sure that you want to delete user with id: ${userId}`)){
         fetch(`https://memin.io/public/api/users/${userId}`, {
             method: 'DELETE',
@@ -201,7 +196,7 @@ function deleteUser(userId){
 }
 
 
-
+// load the information by Id
 function getDataDataById(userId){
     let result  = fetch(`https://memin.io/public/api/users/${userId}`)
     .then(result =>{
@@ -235,7 +230,7 @@ function closeForm() {
     clearData();
 }
 
-window.onclick = function (event) {
+window.onclick = function (event) { 
     if (event.target == modalForm) {
         modalForm.style.display = "none";
         resetDefaultContent();
@@ -244,12 +239,11 @@ window.onclick = function (event) {
 } 
 
 
-// password visibility
+// change password visibility
 const inputPass = document.getElementById("txtPass");
 const checkBoxPass = document.getElementById("showPass");
 
 checkBoxPass.addEventListener("click", (e)=>{
-
     const type = inputPass.getAttribute("type") === "password"? "text": "password";
     inputPass.setAttribute("type", type); 
  
@@ -262,7 +256,7 @@ function clearData(){
     document.formUsers.email.value = "";
     document.formUsers.password.value = "";
 }
-
+// reset content to default
 function resetDefaultContent(){
     contentDetails.style.display = "none";
     contentForm.style.display = "block";
