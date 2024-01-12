@@ -6,6 +6,7 @@ const btnClose = document.getElementById("btnClose");
 const btnClose2 = document.getElementById("btn-close");
 
 const btnSave = document.getElementById("btnSave");
+const inputSearch = document.getElementById("inputSearch");
 
 const modalForm = document.getElementById("modalForm");
 const contentDetails = document.getElementById("content-details");
@@ -174,6 +175,8 @@ function  openDetails(userId){
 // Edit User -> PUT
 function editUser(userId, userData){
 
+
+
     fetch(`https://memin.io/public/api/users/${userId}`, {
         method: 'PUT',
         headers: {
@@ -248,6 +251,17 @@ function getDataById(userId){
         console.error("Error to load data: ", error);
     })
 }
+
+inputSearch.addEventListener("keypress", function search(event){
+    let busqueda  = event.target.value;
+    console.log(busqueda);
+
+    fetch(`https://memin.io/public/api/v2/users/search/${busqueda}`)
+    .then(response => {return response.json()})
+    .then(data =>{
+        console.log(data);
+    })
+});
 
 
 
