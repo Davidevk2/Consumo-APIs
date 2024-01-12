@@ -69,7 +69,7 @@ table.appendChild(tbody);
  }
 
 // Create a new user 
-btnSave.onclick  = POST;
+btnSave.onclick  = checkAction;
 
 
 userData = {
@@ -88,36 +88,44 @@ user = {
     createdAt: "",
     updateAt: ""
 }
-// function to check what action must run(create or update); 
+//  check which action must run(create or update); 
 function checkAction(){
-    if(formId.value = ""){
+    let formId = document.formUsers.id.value;
+    let formName = document.formUsers.name.value;
+    let formEmail = document.formUsers.email.value;
+    let formPass = document.formUsers.password.value;
+
+    // if the input id is empty create user else update user
+    if(formId ==""){
         
-        if (formName.value != "" && formEmail.value != "" && formPass.value != "") {
-            let formId = document.formUsers.name;
-            let formName = document.formUsers.name.value;
-            let formEmail = document.formUsers.email.value;
-            let formPass = document.formUsers.password.value;
+        if (formName!= "" && formEmail != "" && formPass != "") {
+
+            userData.name = formName;
+            userData.email = formEmail;
+            userData.password = formPass;
+
+            createUser(userData);
         } else {
             console.log("los campos están vacios");
         }
+
     }else{
-        
+        userData.name = formName;
+        userData.email = formEmail;
+        userData.password = formPass;
+        editUser(formId, userData); 
     }
 }
 
 // CREATE User
-function POST(){
+function createUser(userData){
 
     fetch("https://memin.io/public/api/users", {
         method: 'POST', 
         headers: {
             'Content-Type': "application/json"
         },
-        body: JSON.stringify({
-            name: formName,
-            email: formEmail,
-            password: "pass"
-        })
+        body: JSON.stringify(userData)
     } )
     .then(response =>{
         console.log(response);
@@ -275,7 +283,6 @@ const checkBoxPass = document.getElementById("showPass");
 checkBoxPass.addEventListener("click", (e)=>{
     const type = inputPass.getAttribute("type") === "password"? "text": "password";
     inputPass.setAttribute("type", type); 
- 
 })
 
 // clean data from inputs
