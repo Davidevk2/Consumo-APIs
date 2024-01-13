@@ -248,15 +248,24 @@ function getDataById(userId){
     })
 }
 
-inputSearch.addEventListener("keypress", function search(event){
+inputSearch.addEventListener("keyup", function search(event){
     let busqueda  = event.target.value;
-    console.log(busqueda);
+    console.log(busqueda.length);
+    const divResults = document.getElementById("results");
 
-    fetch(`https://memin.io/public/api/v2/users/search/${busqueda}`)
-    .then(response => {return response.json()}) 
-    .then(data =>{
-        console.log(data);
-    })
+    if(busqueda.length = 0 || isNaN(busqueda.length) || !busqueda){
+        divResults.innerHTML = "";
+    }else{
+        fetch(`https://memin.io/public/api/v2/users/search/${busqueda}`)
+            .then(response => { return response.json() })
+            .then(data => {
+                data.forEach(result => {
+                    let spanR = document.createElement("p");
+                    spanR.textContent = result.name + " -> " + result.email;
+                    divResults.appendChild(spanR);
+                })
+            })
+    }
 });
 
 
@@ -318,11 +327,18 @@ function resetDefaultContent(){
 
 
 // prueba
-function prueba(){
-    let i = 3000;
-    while(i < 3500){
-
+async function prueba(){
+    let i = 7350;
+    while(i < 7400){
+        console.log("delete to ", i);
+        await fetch(`https://memin.io/public/api/users/${i}`, 
+        {method: "DELETE"})
+        .then(response =>{
+            console.log(response);
+        })
         i++;
     }
     return i;
 }
+
+//prueba();
