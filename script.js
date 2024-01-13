@@ -259,10 +259,11 @@ inputSearch.addEventListener("keyup", function search(event){
         fetch(`https://memin.io/public/api/v2/users/search/${busqueda}`)
             .then(response => { return response.json() })
             .then(data => {
+                console.log(data);
                 data.forEach(result => {
                     let spanR = document.createElement("p");
                     spanR.classList.add("spanResults");
-                    spanR.textContent = result.name + " -> " + result.email;
+                    spanR.textContent = result.id + " - "+ result.name + " -> " + result.email;
                     divResults.appendChild(spanR);
                 })
             })
