@@ -261,6 +261,7 @@ inputSearch.addEventListener("keyup", function search(event){
             .then(data => {
                 data.forEach(result => {
                     let spanR = document.createElement("p");
+                    spanR.classList.add("spanResults");
                     spanR.textContent = result.name + " -> " + result.email;
                     divResults.appendChild(spanR);
                 })

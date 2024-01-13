@@ -139,3 +139,23 @@ td {
 .hidden{
     display: none;
 }
+.results{
+    width: 480px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 6px;
+    /* border: 1px solid rgba(87, 87, 87, 0.693); */
+    margin-top: 45px;
+    position: absolute;   
+    max-height: 350px;
+    overflow: auto; 
+}
+
+.spanResults{
+    margin: auto auto;
+    padding: 10px;
+}
+
+.spanResults:hover{
+    background-color: #f0f0f0;
+    
+}
