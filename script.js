@@ -7,6 +7,7 @@ const btnClose2 = document.getElementById("btn-close");
 
 const btnSave = document.getElementById("btnSave");
 const inputSearch = document.getElementById("inputSearch");
+const spanRecords = document.getElementById("count");
 
 const modalForm = document.getElementById("modalForm");
 const contentDetails = document.getElementById("content-details");
@@ -25,6 +26,7 @@ let  result = fetch("https://memin.io/public/api/v2/users")
     return response.json();
 }).then(records => {// work with incoming data 
     // data = data.slice(8900, 10000);
+    spanRecords.innerText = records.total;
     records.data.forEach((element, idx) => {
 
         const row = document.createElement("tr");
@@ -167,16 +169,10 @@ function  openDetails(userId){
     contentForm.style.display = "none";
     btnSave.style.display = "none";
 
-    // console.log(user);
-
-
 }
 
 // Edit User -> PUT
 function editUser(userId, userData){
-
-
-
     fetch(`https://memin.io/public/api/users/${userId}`, {
         method: 'PUT',
         headers: {
@@ -257,7 +253,7 @@ inputSearch.addEventListener("keypress", function search(event){
     console.log(busqueda);
 
     fetch(`https://memin.io/public/api/v2/users/search/${busqueda}`)
-    .then(response => {return response.json()})
+    .then(response => {return response.json()}) 
     .then(data =>{
         console.log(data);
     })
@@ -319,3 +315,14 @@ function resetDefaultContent(){
 
 }
 
+
+
+// prueba
+function prueba(){
+    let i = 3000;
+    while(i < 3500){
+
+        i++;
+    }
+    return i;
+}
