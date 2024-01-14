@@ -133,8 +133,17 @@ function createUser(userData){
     .then(response =>{
         console.log(response);
         clearData();
+        if(response.ok){
+            showMessages("Great", "User created successfully!", "success");
+        }
+        closeModal();
+        //refreshPage();
+        
     })
-    .catch(error=>{console.error("Error al crear el user:", error);});
+    .catch(error=>{
+        console.error("Error al crear el user:", error);
+        showMessages("Oops..", "Error to create user!", "Error");
+    });
 
 }
 
@@ -183,6 +192,12 @@ function editUser(userId, userData){
         .then(response => {
             console.log(response);
             clearData();
+            if(response.ok){
+                showMessages("Great", "User edited successfully!", "success");
+            }
+            closeModal();
+            //setTimeout(refreshPage(), 2500);
+            
         })
         .catch(error => { console.error("Error: to edit user:", error); });
 
@@ -204,7 +219,11 @@ function deleteUser(userId){
             })
             .then(response => {
                 console.log(response);
-                window.location.reload();
+                if(response){
+                    showMessages("Great", "User deleted successfully!", "success");
+                    //setTimeout(refreshPage(),2500);
+                    
+                }
             })
             .catch(error => { console.error("Error al crear el user:", error); });
     }else{
@@ -275,14 +294,14 @@ inputSearch.addEventListener("keyup", function search(event){
 // Modal to create new users
 btnAdd.addEventListener("click", openModal);
 
-btnClose.addEventListener("click", closeForm);
-btnClose2.addEventListener("click", closeForm);
+btnClose.addEventListener("click", closeModal);
+btnClose2.addEventListener("click", closeModal);
 
 function openModal() {
     modalForm.style.display = "block";
 }
 
-function closeForm() {
+function closeModal() {
     modalForm.style.display = "none";
     resetDefaultContent();
     clearData();
@@ -313,6 +332,12 @@ function clearData(){
     document.formUsers.email.value = "";
     document.formUsers.password.value = "";
 }
+
+// refresh page
+function refreshPage(){
+    window.location.reload();
+}
+
 // reset content to default
 function resetDefaultContent(){
     contentDetails.style.display = "none";
@@ -327,7 +352,21 @@ function resetDefaultContent(){
 }
 
 
+// const btnTest = document.getElementById("btnTest");
 
+// btnTest.addEventListener("click", showMessages) 
+
+function showMessages(titulo, text, icon){
+    Swal.fire({
+        title: titulo,
+        text: text,
+        icon: icon, //success, error, warning, info, question
+        //width: "90%",
+        //backdrop: true,
+        toast: true,
+        position: "top-end"
+    })
+}
 // prueba
 async function prueba(){
     let i = 7350;
